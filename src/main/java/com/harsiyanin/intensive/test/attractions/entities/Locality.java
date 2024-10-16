@@ -1,6 +1,5 @@
-package com.harsiyanin.intensive.test.attractions.locality.entities;
+package com.harsiyanin.intensive.test.attractions.entities;
 
-import com.harsiyanin.intensive.test.attractions.attraction.entities.Attraction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,18 +13,25 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "locality")
 public class Locality {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String city;
+
+    @Column(nullable = false)
     private String region;
 
     @OneToMany(mappedBy = "locality", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attraction> attractions;
 
+    @Column
     private Double latitude;
+
+    @Column
     private Double longitude;
 
 }

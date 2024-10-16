@@ -1,11 +1,13 @@
-package com.harsiyanin.intensive.test.attractions.assistance.entities;
+package com.harsiyanin.intensive.test.attractions.entities;
 
-import com.harsiyanin.intensive.test.attractions.attraction.entities.Attraction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -13,19 +15,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "assistance")
 public class Assistance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AssistanceType type;
 
+    @Column
     private String description;
+
+    @Column(nullable = false)
     private String provider;
 
-    @ManyToOne
-    @JoinColumn(name = "attraction_id")
-    private Attraction attraction;
+    @ManyToMany(mappedBy = "assistanceList")
+    private List<Attraction> attractions = new ArrayList<>();
 }
 
